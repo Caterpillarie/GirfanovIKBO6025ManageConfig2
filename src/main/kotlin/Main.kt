@@ -13,7 +13,7 @@ fun main(args: Array<String>) {
         val config = parser.parse(args)
         val repository = createRepository(config)
         val useCase = BuildDependencyGraphUseCase(repository)
-        val graph = useCase(config.packageName, config.maxDepth)
+        val graph = useCase(config.packageName, config.maxDepth, config.isReverse)
         GraphPrinter().print(graph)
     } catch (e: IllegalArgumentException) {
         System.err.println(e.message)

@@ -12,6 +12,7 @@ CLI-инструмент на языке Kotlin для анализа и виз�
 * Работа с реальным репозиторием Alpine Linux
 * Построение графа зависимостей (рекурсивный DFS)
 * Режим тестового репозитория
+* Режим вывода на экран обратных зависимостей
 
 ### Настраиваемые параметры 
 * `--package` — имя анализируемого пакета   
@@ -19,6 +20,7 @@ CLI-инструмент на языке Kotlin для анализа и виз�
 * `--test` — режим работы с тестовым репозиторием
 * `--ascii` — режим вывода зависимостей в формате ASCII-дерева
 * `--depth` — максимальная глубина анализа зависимостей
+* `--reverse` — режим вывода обратных зависимостей
 
 ## 3. Сборка проекта и запуск тестов
 
@@ -90,7 +92,7 @@ E: D
 F: F
 ```
 
-Команда запуска:
+Команда запуска в режиме тестирования:
 
 ```bat
 run.bat --package A --repo test_repo.txt --test true --depth 4
@@ -99,6 +101,7 @@ run.bat --package A --repo test_repo.txt --test true --depth 4
 Пример вывода: 
 
 ```text
+Dependency graph for a package 'A':
 - A
   - B
     - C
@@ -106,4 +109,20 @@ run.bat --package A --repo test_repo.txt --test true --depth 4
     - D
   - E
     - D
+```
+
+Команда запуска в режиме вывода обратных зависимостей:
+
+```bat
+run.bat --package A --repo test_repo.txt --test true --depth 4 --reverse true
+```
+
+Пример вывода: 
+
+```text
+Dependency graph for a package 'A':
+- A
+  - C
+    - B
+      - A [cycle]
 ```

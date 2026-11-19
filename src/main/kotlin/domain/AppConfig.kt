@@ -16,6 +16,7 @@ data class AppConfig(
     val repositoryPath: String,
     val isTest: Boolean,
     val isASCII: Boolean,
+    val isReverse: Boolean = false,
     val maxDepth: Int,
 ) {
     init {

@@ -31,6 +31,10 @@ class ApkNetworkRepository(
             ?: throw IllegalArgumentException("Package '$packageName' doesn't found")
     }
 
+    override fun getAllDependencies(): Map<String, List<String>> {
+        return cachedDependencies ?: loadAndCacheIndex()
+    }
+
     private fun loadAndCacheIndex(): Map<String, List<String>> {
         val indexUrl = buildIndexUrl(repositoryUrl)
         val indexText = downloadAndExtractIndex(indexUrl)

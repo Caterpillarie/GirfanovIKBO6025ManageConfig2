@@ -116,6 +116,10 @@ class BuildDependencyGraphUseCaseTest {
             return graph[packageName]
                 ?: throw IllegalArgumentException("Package '$packageName' not found.")
         }
+
+        override fun getAllDependencies(): Map<String, List<String>> {
+            return graph
+        }
     }
 
     companion object {

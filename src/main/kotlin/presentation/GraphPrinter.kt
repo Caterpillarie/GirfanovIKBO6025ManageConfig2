@@ -9,8 +9,10 @@ class GraphPrinter {
 
     /**
      * Outputs the dependency graph tree to the console
+     *
+     * @param root Root node of the dependency graph.
      */
-    fun print(root: DependencyNode) {
+    fun print(root: DependencyNode, isReverse: Boolean = false) {
         println("Dependency graph for a package '${root.name}':")
         printNode(root)
     }

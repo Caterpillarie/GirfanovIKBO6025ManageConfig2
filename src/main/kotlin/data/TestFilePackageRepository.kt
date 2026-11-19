@@ -30,6 +30,10 @@ class TestFilePackageRepository(
             )
     }
 
+    override fun getAllDependencies(): Map<String, List<String>> {
+        return cachedGraph ?: loadAndCacheGraph()
+    }
+
     private fun loadAndCacheGraph(): Map<String, List<String>> {
         validateSource()
         val lines = File(filePath).readLines().filter { it.isNotBlank() }

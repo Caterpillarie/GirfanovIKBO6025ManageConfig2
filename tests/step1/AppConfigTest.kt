@@ -19,7 +19,7 @@ class AppConfigTest {
             repositoryPath = VALID_URL,
             isTest = false,
             isASCII = true,
-            maxDepth = VALID_DEPTH
+            maxDepth = VALID_DEPTH,
         )
 
         assertEquals(VALID_NOT_TEST_PACKAGE_NAME, config.packageName)

@@ -21,6 +21,7 @@ class AppConfigParser {
             repositoryPath = requireOption(options, KEY_REPO),
             isTest = parseBoolean(options[KEY_TEST], KEY_TEST),
             isASCII = parseBoolean(options[KEY_ASCII], KEY_ASCII),
+            isReverse = parseBoolean(options[KEY_REVERSE], KEY_REVERSE),
             maxDepth = parseInt(options[KEY_DEPTH], KEY_DEPTH),
         )
     }
@@ -102,10 +103,11 @@ class AppConfigParser {
         private const val KEY_REPO = "repo"
         private const val KEY_TEST = "test"
         private const val KEY_ASCII = "ascii"
+        private const val KEY_REVERSE = "reverse"
         private const val KEY_DEPTH = "depth"
 
         private val ALLOWED_KEYS = setOf(
-            KEY_PACKAGE, KEY_REPO, KEY_TEST, KEY_ASCII, KEY_DEPTH
+            KEY_PACKAGE, KEY_REPO, KEY_TEST, KEY_ASCII, KEY_REVERSE, KEY_DEPTH
         )
     }
 }
