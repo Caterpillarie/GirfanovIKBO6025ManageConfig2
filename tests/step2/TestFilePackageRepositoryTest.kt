@@ -39,19 +39,19 @@ class TestFilePackageRepositoryTest {
     }
 
     /**
-     * Verifies that an empty list is returned when requesting a package that is not present in the file.
+     * Verifies that an exception is thrown when requesting a package that is not present in the file.
      */
     @Test
-    fun emptyListIfNotInFile(
+    fun notInFile(
     @TempDir tempDir: Path
     ) {
         val repoFile = tempDir.resolve("repo.txt")
         Files.writeString(repoFile, "A: B\n")
         val repository = TestFilePackageRepository(repoFile.toString())
 
-        val result = repository.getDirectDependencies("Z")
-
-        assertTrue(result.isEmpty())
+        assertThrows(IllegalArgumentException::class.java) {
+            repository.getDirectDependencies("Z")
+        }
     }
 
     /**

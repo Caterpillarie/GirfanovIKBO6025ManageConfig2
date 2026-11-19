@@ -24,7 +24,10 @@ class TestFilePackageRepository(
 
     override fun getDirectDependencies(packageName: String): List<String> {
         val graph = cachedGraph ?: loadAndCacheGraph()
-        return graph[packageName] ?: emptyList()
+        return graph[packageName]
+            ?: throw IllegalArgumentException(
+                "Package '$packageName' not found in test repository."
+            )
     }
 
     private fun loadAndCacheGraph(): Map<String, List<String>> {

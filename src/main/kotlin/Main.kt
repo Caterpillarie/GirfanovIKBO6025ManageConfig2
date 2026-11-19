@@ -1,8 +1,10 @@
 import main.kotlin.data.ApkNetworkRepository
 import main.kotlin.data.TestFilePackageRepository
 import main.kotlin.domain.AppConfig
+import main.kotlin.domain.BuildDependencyGraphUseCase
 import main.kotlin.domain.PackageRepository
 import main.kotlin.presentation.AppConfigParser
+import main.kotlin.presentation.GraphPrinter
 import kotlin.system.exitProcess
 
 fun main(args: Array<String>) {
@@ -10,9 +12,9 @@ fun main(args: Array<String>) {
     try {
         val config = parser.parse(args)
         val repository = createRepository(config)
-        val dependencies = repository.getDirectDependencies(config.packageName)
-        printDirectDependencies(config.packageName, dependencies)
-        printConfig(config)
+        val useCase = BuildDependencyGraphUseCase(repository)
+        val graph = useCase(config.packageName, config.maxDepth)
+        GraphPrinter().print(graph)
     } catch (e: IllegalArgumentException) {
         System.err.println(e.message)
         exitProcess(EXIT_ERROR_CODE)

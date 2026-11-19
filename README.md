@@ -8,8 +8,10 @@ CLI-инструмент на языке Kotlin для анализа и виз�
 
 * Разбор опций командной строки
 * Валидация корректности переданных значений и типов данных
-* Вывод сконфигурированных параметров в консоль в формате `ключ: значение`
 * Вывод сообщений об ошибке при некорректном вводе
+* Работа с реальным репозиторием Alpine Linux
+* Построение графа зависимостей (рекурсивный DFS)
+* Режим тестового репозитория
 
 ### Настраиваемые параметры 
 * `--package` — имя анализируемого пакета   
@@ -20,7 +22,88 @@ CLI-инструмент на языке Kotlin для анализа и виз�
 
 ## 3. Сборка проекта и запуск тестов
 
-Запуск приложения осуществляется через скрипт `run.bat` (необходим Gradle 8.x)
+Запуск приложения осуществляется через скрипт `run.bat` (необходим Gradle 8.x и JDK 21)
 ```bat
 run.bat [параметры]
+```
 
+Запуск модульных тестов JUnit5
+```bat
+gradle clean test
+```
+
+## 4. Примеры запуска программы
+
+1. Анализ пакета из реального репозитория Alpine Linux
+```bat
+run.bat --package curl --repo "https://dl-cdn.alpinelinux.org/alpine/latest-stable/main/x86_64/" --depth 4
+```
+
+Пример выводв:
+```text
+- curl
+  - libcurl
+    - ca-certificates-bundle
+    - brotli-libs
+      - musl
+    - musl
+    - c-ares
+      - musl
+    - libcrypto3
+      - musl
+    - libidn2
+      - musl
+      - libunistring
+        - musl
+    - nghttp2-libs
+      - musl
+    - libpsl
+      - musl
+      - libidn2
+        - musl
+        - libunistring
+      - libunistring
+        - musl
+    - libssl3
+      - libcrypto3
+        - musl
+      - musl
+    - zlib
+      - musl
+    - zstd-libs
+      - musl
+  - musl
+  - zlib
+    - musl
+```
+
+2. Анализ графа с циклами с тестовом режиме
+
+Содержимое файла `test_repo.txt`:
+
+```text
+A: B E
+B: C D
+C: A
+D: 
+E: D
+F: F
+```
+
+Команда запуска:
+
+```bat
+run.bat --package A --repo test_repo.txt --test true --depth 4
+```
+
+Пример вывода: 
+
+```text
+- A
+  - B
+    - C
+      - A [cycle]
+    - D
+  - E
+    - D
+```
