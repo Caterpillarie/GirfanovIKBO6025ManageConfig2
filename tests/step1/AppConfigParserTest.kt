@@ -8,13 +8,13 @@ import org.junit.jupiter.api.Test
 import main.kotlin.presentation.AppConfigParser
 
 /**
- * Модульные тесты для парсера командной строки.
+ * Unit tests for the command-line arguments parser.
  */
 class AppConfigParserTest {
     private val parser = AppConfigParser()
 
     /**
-     * Проверяет корректный разбор полного набора опций командной строки.
+     * Verifies the correct parsing of the full set of command-line options.
      */
     @Test
     fun validCase() {
@@ -35,7 +35,7 @@ class AppConfigParserTest {
     }
 
     /**
-     * Проверяет ошибку при отсутствии обязательного параметра.
+     * Checks for an error when a required parameter is missing.
      */
     @Test
     fun repoIsMissing() {
@@ -47,7 +47,7 @@ class AppConfigParserTest {
     }
 
     /**
-     * Проверяет ошибку при передаче нечислового значения глубины.
+     * Checks for an error when a non-numeric depth value is passed.
      */
     @Test
     fun depthIsNotInt() {
@@ -63,7 +63,7 @@ class AppConfigParserTest {
     }
 
     /**
-     * Проверяет ошибку при передаче неизвестного флага.
+     * Checks for an error when an unknown key is passed.
      */
     @Test
     fun keyIsUnknown() {

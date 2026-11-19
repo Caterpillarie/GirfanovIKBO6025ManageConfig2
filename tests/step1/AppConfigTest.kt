@@ -5,9 +5,12 @@ import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertThrows
 
+/**
+ * Unit tests for the configuration class.
+ */
 class AppConfigTest {
     /**
-     * Проверяет успешное создание конфигурации при корректных параметрах.
+     * Verifies that the configuration is successfully created when valid parameters are provided.
      */
     @Test
     fun createValidConfig() {
@@ -24,7 +27,7 @@ class AppConfigTest {
     }
 
     /**
-     * Проверяет выброс исключения при пустом имени пакета.
+     * Verifies that an exception is thrown when the package name is empty.
      */
     @Test
     fun packageNameIsBlank() {
@@ -40,7 +43,7 @@ class AppConfigTest {
     }
 
     /**
-     * Проверяет запрет на строчные буквы в имени пакета в тестовом режиме.
+     * Checks for the prohibition of lowercase letters in a package name, in test mode.
      */
     @Test
     fun testPackageIsNotUppercase() {
@@ -56,7 +59,7 @@ class AppConfigTest {
     }
 
     /**
-     * Проверяет валидацию максимальной глубины анализа.
+     * Verifies the validation of the maximum analysis depth.
      */
     @Test
     fun maxDepthIsInvalid() {
@@ -72,7 +75,7 @@ class AppConfigTest {
     }
 
     /**
-     * Проверяет валидацию URL в режиме реального репозитория.
+     * Checks URL validation in the context of an actual repository.
      */
     @Test
     fun invalidURL() {
