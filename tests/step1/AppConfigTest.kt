@@ -10,7 +10,8 @@ import org.junit.jupiter.api.Assertions.assertThrows
  */
 class AppConfigTest {
     /**
-     * Verifies that the configuration is successfully created when valid parameters are provided.
+     * Verifies that the configuration is successfully
+     * created when valid parameters are provided.
      */
     @Test
     fun createValidConfig() {

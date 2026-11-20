@@ -77,7 +77,9 @@ class VisualizationTest {
         assertTrue(puml.contains("rectangle \"A\" as pkg_A"))
         assertTrue(puml.contains("pkg_B --> pkg_C"))
         assertTrue(puml.contains("pkg_C ..> pkg_B : cycle"))
-        assertEquals(SINGLE_OCCURRENCE, countOccurrences(puml, "pkg_C --> pkg_A"))
+        assertEquals(
+            SINGLE_OCCURRENCE,
+            countOccurrences(puml, "pkg_C --> pkg_A"))
     }
 
     private fun countOccurrences(text: String, substring: String): Int {

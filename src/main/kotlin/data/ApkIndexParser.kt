@@ -1,7 +1,7 @@
 package main.kotlin.data
 
 /**
- * Alpine Linux package text index parser
+ * Alpine Linux package text index parser.
  */
 class ApkIndexParser {
 
@@ -16,7 +16,7 @@ class ApkIndexParser {
         val providers = buildProviderMap(rawPackages)
         return rawPackages.associate { entry ->
             val resolvedDeps = entry.rawDependencies
-                .mapNotNull { dep -> resolveDependencyName(dep, providers) }
+                .mapNotNull { dep -> resolveDependencyName(rawDep = dep, providers) }
                 .filter { it != entry.name }
                 .distinct()
             entry.name to resolvedDeps
@@ -41,7 +41,7 @@ class ApkIndexParser {
                 line.startsWith(PREFIX_PROVIDES) -> provides = splitTokens(line, PREFIX_PROVIDES)
             }
         }
-        return name?.let { RawApkEntry(it, deps, provides) }
+        return name?.let { RawApkEntry(name = it, rawDependencies = deps, provides = provides) }
     }
 
     private fun splitTokens(line: String, prefix: String): List<String> {

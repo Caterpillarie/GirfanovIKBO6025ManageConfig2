@@ -3,19 +3,18 @@ package main.kotlin.presentation
 import main.kotlin.domain.DependencyNode
 
 /**
- * Formats and outputs the dependency graph to the console
+ * Formats and outputs the dependency graph to the console.
  */
 class GraphPrinter {
 
     /**
-     * Outputs the dependency graph tree to the console
+     * Outputs the dependency graph tree to the console.
      *
      * @param root Root node of the dependency graph.
      */
     fun print(
         root: DependencyNode,
-        isASCII: Boolean = false,
-        isReverse: Boolean = false
+        isASCII: Boolean = false
     ) {
         println("Dependency graph for a package '${root.name}':")
         if(isASCII) {

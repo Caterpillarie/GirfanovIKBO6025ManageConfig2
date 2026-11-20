@@ -16,7 +16,8 @@ import java.util.zip.GZIPOutputStream
 class ApkNetworkRepositoryTest {
 
     /**
-     * Verifies the loading of the index based on the directory's base URL and the return of dependencies.
+     * Verifies the loading of the index based on
+     * the directory's base URL and the return of dependencies.
      */
     @Test
     fun loadIndexAndReturnDependencies(
@@ -50,7 +51,8 @@ class ApkNetworkRepositoryTest {
     }
 
     /**
-     * Verifies that an exception is thrown when no archive exists at the specified location.
+     * Verifies that an exception is thrown
+     * when no archive exists at the specified location.
      */
     @Test
     fun archiveDontExist(
@@ -68,7 +70,9 @@ class ApkNetworkRepositoryTest {
         GZIPOutputStream(FileOutputStream(targetFile)).use { gzip ->
             val header = ByteArray(TAR_BLOCK_SIZE)
             "APKINDEX".toByteArray(Charsets.UTF_8).copyInto(header, 0)
-            val octalSize = data.size.toString(OCTAL_RADIX).padStart(SIZE_DIGITS_LENGTH, '0')
+            val octalSize = data.size
+                .toString(OCTAL_RADIX)
+                .padStart(SIZE_DIGITS_LENGTH, '0')
             octalSize.toByteArray(Charsets.UTF_8).copyInto(header, SIZE_OFFSET)
             gzip.write(header)
             gzip.write(data)

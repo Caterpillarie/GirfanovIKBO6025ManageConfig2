@@ -3,7 +3,7 @@ package main.kotlin.domain
 /**
  * A scenario for constructing a dependency graph using recursive DFS.
  *
- * @property repository Dependencies data source repository
+ * @property repository Dependencies data source repository.
  */
 class BuildDependencyGraphUseCase(
     private val repository: PackageRepository
@@ -14,7 +14,7 @@ class BuildDependencyGraphUseCase(
      *
      * @param rootPackage Name of the target package to analyze.
      * @param maxDepth Maximum dependency traversal depth.
-     * @param isReverse
+     * @param isReverse Enables reverse traversal mode (step 4 only).
      * @return Root node of the constructed dependency graph.
      */
     operator fun invoke(

@@ -5,12 +5,12 @@ package main.kotlin.domain
  */
 interface PackageRepository {
     /**
-     * Checks that source exists and reachable
+     * Checks that source exists and reachable.
      */
     fun validateSource()
 
     /**
-     * Returns a list of the names of direct dependencies for the specified package.\
+     * Returns a list of the names of direct dependencies for the specified package.
      *
      * @param packageName Target package name.
      * @return List of direct dependency package names.

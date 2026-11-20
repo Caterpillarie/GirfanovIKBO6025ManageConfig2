@@ -17,15 +17,23 @@ class ReverseModeTest {
     private val printer = GraphPrinter()
 
     /**
-     * Verifies that --reverse key is parsed into [main.kotlin.domain.AppConfig.isReverse]
+     * Verifies that --reverse key is parsed
+     * into [main.kotlin.domain.AppConfig.isReverse].
      */
     @Test
     fun reverseKeyParsing() {
         val enabledConfig = parser.parse(
-            arrayOf("--package", "D", "--repo", "test.txt", "--reverse", "true", "--test", "true")
+            arrayOf(
+                "--package", "D",
+                "--repo", "test.txt",
+                "--reverse", "true",
+                "--test", "true")
         )
         val defaultConfig = parser.parse(
-            arrayOf("--package", "D", "--repo", "test.txt", "--test", "true")
+            arrayOf(
+                "--package", "D",
+                "--repo", "test.txt",
+                "--test", "true")
         )
 
         assertTrue(enabledConfig.isReverse)
@@ -33,28 +41,47 @@ class ReverseModeTest {
     }
 
     /**
-     * Verifies that invalid boolean value or --reverse throws an exception.
+     * Verifies that invalid boolean value
+     * or --reverse throws an exception.
      */
     @Test
     fun invalidReverse() {
         assertThrows(IllegalArgumentException::class.java) {
             parser.parse(
-                arrayOf("--package", "D", "--repo", "test.txt", "--test", "true", "--reverse", "invalid")
+                arrayOf(
+                    "--package", "D",
+                    "--repo", "test.txt",
+                    "--test", "true",
+                    "--reverse", "invalid"
+                )
             )
         }
     }
 
     /**
-     * Verifies reverse dependency header and indented list formatting with cycle marker.
+     * Verifies reverse dependency header and
+     * indented list formatting with cycle marker.
      */
     @Test
     fun printReverseDependency() {
-        val cycleB = DependencyNode(name = "B", depth = DEPTH_TWO, isCycle = true)
-        val nodeA = DependencyNode(name = "A", depth = DEPTH_ONE, dependencies = listOf(cycleB))
-        val rootD = DependencyNode(name = "D", depth = DEPTH_ZERO, dependencies = listOf(nodeA))
+        val cycleB = DependencyNode(
+            name = "B",
+            depth = DEPTH_TWO,
+            isCycle = true
+        )
+        val nodeA = DependencyNode(
+            name = "A",
+            depth = DEPTH_ONE,
+            dependencies = listOf(cycleB)
+        )
+        val rootD = DependencyNode(
+            name = "D",
+            depth = DEPTH_ZERO,
+            dependencies = listOf(nodeA)
+        )
 
         val outputLines = captureStdout {
-            printer.print(rootD, isReverse = true)
+            printer.print(rootD)
         }
 
         val expectedLines = listOf(
@@ -69,13 +96,19 @@ class ReverseModeTest {
     private fun captureStdout(block: () -> Unit): List<String> {
         val originalOut = System.out
         val buffer = ByteArrayOutputStream()
-        System.setOut(PrintStream(buffer, true, Charsets.UTF_8))
+        System.setOut(
+            PrintStream(
+                buffer, true, Charsets.UTF_8
+            )
+        )
         try {
             block()
         } finally {
             System.setOut(originalOut)
         }
-        return buffer.toString(Charsets.UTF_8).lines().filter { it.isNotEmpty() }
+        return buffer.toString(Charsets.UTF_8).lines().filter {
+            it.isNotEmpty()
+        }
     }
 
     companion object {

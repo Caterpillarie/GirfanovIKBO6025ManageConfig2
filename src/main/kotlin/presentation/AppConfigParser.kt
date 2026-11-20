@@ -9,9 +9,9 @@ class AppConfigParser {
     /**
      * Transforms command line arguments to config object.
      *
-     * @param args Array of arguments
-     * @return Validated object [AppConfig]
-     * @throws IllegalArgumentException If format is wrong or keys are missed
+     * @param args Array of arguments.
+     * @return Validated object [AppConfig].
+     * @throws IllegalArgumentException If format is wrong or keys are missed.
      */
     fun parse(args: Array<String>): AppConfig {
         val options = extractKeyValuePairs(args)

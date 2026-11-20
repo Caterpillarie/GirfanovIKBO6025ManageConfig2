@@ -5,11 +5,11 @@ import java.net.URI
 /**
  * Application configuration containing options for dependency analysis.
  *
- * @property packageName Name of analyzed package
- * @property repositoryPath Repository's URL or path to test file
- * @property isTest Enables test mode
- * @property isASCII Enables ASCII tree format output
- * @property maxDepth Max depth of dependency analysis
+ * @property packageName Name of analyzed package.
+ * @property repositoryPath Repository's URL or path to test file.
+ * @property isTest Enables test mode.
+ * @property isASCII Enables ASCII tree format output.
+ * @property maxDepth Max depth of dependency analysis.
  */
 data class AppConfig(
     val packageName: String,
@@ -31,7 +31,7 @@ data class AppConfig(
         }
         val pattern = if (isTest) TEST_PACK_REG else PACK_REG
         require(packageName.matches(pattern)) {
-            "Waited package name in uppercase, got '$packageName'."
+            "Package name '$packageName' is invalid."
         }
     }
 

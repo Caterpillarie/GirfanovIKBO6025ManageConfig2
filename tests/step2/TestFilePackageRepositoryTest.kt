@@ -15,7 +15,8 @@ import java.nio.file.Path
 class TestFilePackageRepositoryTest {
 
     /**
-     * Verifies that the dependency graph is correctly read from a valid test file.
+     * Verifies that the dependency graph
+     * is correctly read from a valid test file.
      */
     @Test
     fun parseValidTestFile(
@@ -33,13 +34,20 @@ class TestFilePackageRepositoryTest {
 
         repository.validateSource()
 
-        assertEquals(listOf("B", "C"), repository.getDirectDependencies("A"))
-        assertEquals(listOf("D"), repository.getDirectDependencies("B"))
+        assertEquals(
+            listOf("B", "C"),
+            repository.getDirectDependencies("A")
+        )
+        assertEquals(
+            listOf("D"),
+            repository.getDirectDependencies("B")
+        )
         assertTrue(repository.getDirectDependencies("C").isEmpty())
     }
 
     /**
-     * Verifies that an exception is thrown when requesting a package that is not present in the file.
+     * Verifies that an exception is thrown when requesting
+     * a package that is not present in the file.
      */
     @Test
     fun notInFile(
@@ -68,7 +76,8 @@ class TestFilePackageRepositoryTest {
     }
 
     /**
-     * Verifies that an exception is thrown if the provided path points to a directory rather than a file.
+     * Verifies that an exception is thrown if
+     * the provided path points to a directory rather than a file.
      */
     @Test
     fun pathIsDirectory(@TempDir tempDir: Path) {
@@ -94,7 +103,8 @@ class TestFilePackageRepositoryTest {
     }
 
     /**
-     * Verifies that an exception is thrown when the separator ':' is missing from a line in the file.
+     * Verifies that an exception is thrown
+     * when the separator ':' is missing from a line in the file.
      */
     @Test
     fun colonDelimiterIsMissing(@TempDir tempDir: Path) {
@@ -108,7 +118,8 @@ class TestFilePackageRepositoryTest {
     }
 
     /**
-     * Checks for a prohibition on package names containing lowercase letters in a test file.
+     * Checks for a prohibition on package names
+     * containing lowercase letters in a test file.
      */
     @Test
     fun lowercaseLettersInPackageName(

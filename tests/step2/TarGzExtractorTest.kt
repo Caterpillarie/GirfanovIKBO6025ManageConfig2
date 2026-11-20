@@ -16,7 +16,8 @@ class TarGzExtractorTest {
     private val extractor = TarGzExtractor()
 
     /**
-     * Verifies the extraction of the target file after skipping the preceding file, including its padding.
+     * Verifies the extraction of the target file
+     * after skipping the preceding file, including its padding.
      */
     @Test
     fun targetFileExtractionAfterSkipping() {
@@ -35,7 +36,8 @@ class TarGzExtractorTest {
     }
 
     /**
-     * Verifies that an exception is thrown if the requested file is missing from the archive.
+     * Verifies that an exception is thrown
+     * if the requested file is missing from the archive.
      */
     @Test
     fun targetFileIsMissingInArchive() {
@@ -62,7 +64,8 @@ class TarGzExtractorTest {
         val nameBytes = name.toByteArray(Charsets.UTF_8)
         nameBytes.copyInto(header, destinationOffset = 0)
         val octalSize = data.size.toString(OCTAL_RADIX).padStart(SIZE_DIGITS_LENGTH, '0')
-        octalSize.toByteArray(Charsets.UTF_8).copyInto(header, destinationOffset = SIZE_OFFSET)
+        octalSize.toByteArray(Charsets.UTF_8)
+            .copyInto(header, destinationOffset = SIZE_OFFSET)
         gzip.write(header)
         gzip.write(data)
         val remainder = data.size % TAR_BLOCK_SIZE

@@ -8,7 +8,8 @@ import main.kotlin.domain.DependencyNode
 class PlantUMLGraphExporter {
 
     /**
-     * Converts the dependency tree starting at [root] into PlantUML diagram source text.
+     * Converts the dependency tree starting
+     * at [root] into PlantUML diagram source text.
      *
      * @param root Root node of the traversed dependency graph.
      * @return Complete PlantUML script enclosed in @startuml and @enduml tags.
@@ -74,12 +75,16 @@ class PlantUMLGraphExporter {
             val isCycleTarget = nodes[to] == true
             val arrow = if (isCycleTarget) CYCLE_ARROW else NORMAL_ARROW
             val labelSuffix = if (isCycleTarget) CYCLE_EDGE_LABEL else ""
-            lines.add("$fromAlias $arrow $toAlias" + if (labelSuffix.isNotEmpty()) " : $labelSuffix" else "")
+            lines.add("$fromAlias $arrow $toAlias" +
+                    if (labelSuffix.isNotEmpty()) " : $labelSuffix" else "")
         }
     }
 
     private fun toAlias(packageName: String): String {
-        val sanitized = packageName.replace(INVALID_ALIAS_CHARS_REGEX, ALIAS_SEPARATOR)
+        val sanitized = packageName.replace(
+            INVALID_ALIAS_CHARS_REGEX,
+            ALIAS_SEPARATOR
+        )
         return "$ALIAS_PREFIX$sanitized"
     }
 

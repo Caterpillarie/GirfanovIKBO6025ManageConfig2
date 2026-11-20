@@ -36,7 +36,7 @@ class TarGzExtractor {
         var totalRead = 0
         while (totalRead < buffer.size) {
             val read = stream.read(buffer, totalRead, buffer.size - totalRead)
-            if (read <= 0) break
+            if (read <= ZERO_LONG) break
             totalRead += read
         }
         return totalRead
@@ -52,7 +52,7 @@ class TarGzExtractor {
         val rawSize = String(header, SIZE_OFFSET, SIZE_FIELD_LENGTH, Charsets.UTF_8)
             .substringBefore('\u0000')
             .trim()
-        return rawSize.toLongOrNull(OCTAL_RADIX) ?: 0L
+        return rawSize.toLongOrNull(OCTAL_RADIX) ?: ZERO_LONG
     }
 
     private fun readContent(stream: InputStream, size: Long): String {
@@ -63,16 +63,17 @@ class TarGzExtractor {
 
     private fun skipEntryData(stream: InputStream, fileSize: Long) {
         val remainder = fileSize % TAR_BLOCK_SIZE
-        val padding = if (remainder == 0L) 0L else TAR_BLOCK_SIZE - remainder
+        val padding = if (remainder == ZERO_LONG) ZERO_LONG else TAR_BLOCK_SIZE - remainder
         var bytesToSkip = fileSize + padding
-        while (bytesToSkip > 0) {
+        while (bytesToSkip > ZERO_LONG) {
             val skipped = stream.skip(bytesToSkip)
-            if (skipped <= 0) break
+            if (skipped <= ZERO_LONG) break
             bytesToSkip -= skipped
         }
     }
 
     companion object {
+        private const val ZERO_LONG = 0L
         private const val TAR_BLOCK_SIZE = 512
         private const val NAME_FIELD_LENGTH = 100
         private const val SIZE_OFFSET = 124

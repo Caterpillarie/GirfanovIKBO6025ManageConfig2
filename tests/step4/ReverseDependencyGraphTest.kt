@@ -11,7 +11,8 @@ import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.assertThrows
 
 /**
- * Unit test for reverse dependency graph traversal in [main.kotlin.domain.BuildDependencyGraphUseCase].
+ * Unit test for reverse dependency graph traversal
+ * in [main.kotlin.domain.BuildDependencyGraphUseCase].
  */
 class ReverseDependencyGraphTest {
 
@@ -20,7 +21,9 @@ class ReverseDependencyGraphTest {
      */
     @Test
     fun buildTransitiveReverseDependenciesGraph() {
-        val repository = FakePackageRepository(createCyclicSampleGraph())
+        val repository = FakePackageRepository(
+            createCyclicSampleGraph()
+        )
         val useCase = BuildDependencyGraphUseCase(repository)
 
         val root = useCase(
@@ -30,21 +33,35 @@ class ReverseDependencyGraphTest {
         )
 
         assertEquals("D", root.name)
-        assertEquals(listOf("B", "E"), root.dependencies.map { it.name })
+        assertEquals(
+            listOf("B", "E"),
+            root.dependencies.map { it.name }
+        )
         val branchB = root.dependencies[FIRST_INDEX]
-        assertEquals(listOf("A"), branchB.dependencies.map { it.name })
+        assertEquals(
+            listOf("A"),
+            branchB.dependencies.map { it.name }
+        )
         val nodeAFromB = branchB.dependencies[FIRST_INDEX]
-        assertEquals(listOf("C"), nodeAFromB.dependencies.map { it.name })
+        assertEquals(
+            listOf("C"),
+            nodeAFromB.dependencies.map { it.name }
+        )
         assertFalse(nodeAFromB.dependencies[FIRST_INDEX].isCycle)
     }
 
     /**
-     * Verifies cycle detection and depth limiting during reverse dependency traversal.
+     * Verifies cycle detection and depth limiting
+     * during reverse dependency traversal.
      */
     @Test
     fun cyclicReverseDependenciesWithLimiting() {
-        val repository = FakePackageRepository(createCyclicSampleGraph())
-        val useCase = BuildDependencyGraphUseCase(repository)
+        val repository = FakePackageRepository(
+            createCyclicSampleGraph()
+        )
+        val useCase = BuildDependencyGraphUseCase(
+            repository
+        )
 
         val root = useCase(
             rootPackage = "D",
@@ -60,7 +77,8 @@ class ReverseDependencyGraphTest {
     }
 
     /**
-     * Verifies that a package with no dependencies returns an empty dependencies list.
+     * Verifies that a package with no dependencies
+     * returns an empty dependencies list.
      */
     @Test
     fun noDependencies() {
@@ -68,25 +86,37 @@ class ReverseDependencyGraphTest {
             "A" to listOf("B"),
             "B" to emptyList()
         )
-        val useCase = BuildDependencyGraphUseCase(FakePackageRepository(graph))
+        val useCase = BuildDependencyGraphUseCase(
+            FakePackageRepository(graph)
+        )
 
-        val root = useCase(rootPackage = "A", maxDepth = DEPTH_TWO, isReverse = true)
+        val root = useCase(
+            rootPackage = "A",
+            maxDepth = DEPTH_TWO,
+            isReverse = true
+        )
 
         assertEquals("A", root.name)
         assertTrue(root.dependencies.isEmpty())
     }
 
     /**
-     * Verifies that requesting reverse dependencies for a missing package throws an error.
+     * Verifies that requesting reverse dependencies
+     * for a missing package throws an error.
      */
     @Test
     fun targetPackageNotExists() {
         val useCase = BuildDependencyGraphUseCase(
-            FakePackageRepository(createCyclicSampleGraph())
+            FakePackageRepository(
+                createCyclicSampleGraph()
+            )
         )
 
         assertThrows(IllegalArgumentException::class.java) {
-            useCase(rootPackage = "Z", maxDepth = DEPTH_TWO, isReverse = true)
+            useCase(
+                rootPackage = "Z",
+                maxDepth = DEPTH_TWO,
+                isReverse = true)
         }
     }
 
@@ -101,7 +131,9 @@ class ReverseDependencyGraphTest {
         )
     }
 
-    private fun findDeepestLeftNode(node: DependencyNode): DependencyNode {
+    private fun findDeepestLeftNode(
+        node: DependencyNode
+    ): DependencyNode {
         var current = node
         while (current.dependencies.isNotEmpty()) {
             current = current.dependencies[FIRST_INDEX]
@@ -117,9 +149,13 @@ class ReverseDependencyGraphTest {
             return
         }
 
-        override fun getDirectDependencies(packageName: String): List<String> {
+        override fun getDirectDependencies(
+            packageName: String
+        ): List<String> {
             return graph[packageName]
-                ?: throw IllegalArgumentException("Package '$packageName' not found.")
+                ?: throw IllegalArgumentException(
+                    "Package '$packageName' not found."
+                )
         }
 
         override fun getAllDependencies(): Map<String, List<String>> {

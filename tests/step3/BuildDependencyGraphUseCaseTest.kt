@@ -14,7 +14,8 @@ import org.junit.jupiter.api.Test
 class BuildDependencyGraphUseCaseTest {
 
     /**
-     * Verifies the construction of a multi-level graph with diamond-shaped dependencies and no cycles.
+     * Verifies the construction of a multi-level graph
+     * with diamond-shaped dependencies and no cycles.
      */
     @Test
     fun multiLevelGraphWithoutCycles() {
@@ -65,7 +66,8 @@ class BuildDependencyGraphUseCaseTest {
     }
 
     /**
-     * Verifies the detection of direct and indirect cyclic dependencies without entering an infinite loop.
+     * Verifies the detection of direct and
+     * indirect cyclic dependencies without entering an infinite loop.
      */
     @Test
     fun detectCycles() {
@@ -89,7 +91,8 @@ class BuildDependencyGraphUseCaseTest {
     }
 
     /**
-     * Verifies that an exception is thrown when attempting to build a graph for a non-existent package.
+     * Verifies that an exception is thrown
+     * when attempting to build a graph for a non-existent package.
      */
     @Test
     fun rootPackageNotExists() {
